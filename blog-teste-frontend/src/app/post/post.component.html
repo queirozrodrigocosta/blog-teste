@@ -1,0 +1,36 @@
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-8">
+        <h1 class="blog-title">{{post.title}}</h1>
+        <span>
+                  <p>criado por: {{post.username}}</p>
+              </span>
+        <hr>
+        <p [innerHTML]="post.content"></p>
+        <hr>
+      </div>
+    </div>
+
+    <h6 class="blog-title">Comentários&nbsp;&nbsp;-&nbsp;&nbsp;
+    <a type="button" href="/add-comment/{{post.id}}" >Adicionar</a>
+  </h6 >
+    <hr>
+
+    <div class="row" *ngFor="let item of comments | async">
+      <div class="blogpost">
+        <div>
+          <i class="fas fa-user"></i> autor: {{item.username}}
+        </div>
+        <p [innerHTML]="item.comment"></p>
+        <div>
+          <a type="button"  (click)="remove(item.id)" ><u>Excluir Comentário</u></a>
+        </div>
+        <hr>
+      </div>
+      <hr>
+    </div>
+
+  </div>
+</div>
