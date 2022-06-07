@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import com.teste.blog.exception.SpringBlogException;
+import com.teste.blog.exception.BlogTesteException;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -23,10 +23,10 @@ public class JwtProvider {
     public void init() {
         try {
             keyStore = KeyStore.getInstance("JKS");
-            InputStream resourceAsStream = getClass().getResourceAsStream("/springblog.jks");
+            InputStream resourceAsStream = getClass().getResourceAsStream("/blogteste.jks");
             keyStore.load(resourceAsStream, "secret".toCharArray());
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new SpringBlogException("Exception occured while loading keystore");
+            throw new BlogTesteException("Exception while loading keystore");
         }
 
     }
@@ -41,9 +41,9 @@ public class JwtProvider {
 
     private PrivateKey getPrivateKey() {
         try {
-            return (PrivateKey) keyStore.getKey("springblog", "secret".toCharArray());
+            return (PrivateKey) keyStore.getKey("blogteste", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new SpringBlogException("Exception occured while retrieving public key from keystore");
+            throw new BlogTesteException("Exception while retrieving public key from keystore");
         }
     }
 
@@ -54,9 +54,9 @@ public class JwtProvider {
 
     private PublicKey getPublickey() {
         try {
-            return keyStore.getCertificate("springblog").getPublicKey();
+            return keyStore.getCertificate("blogteste").getPublicKey();
         } catch (KeyStoreException e) {
-            throw new SpringBlogException("Exception occured while retrieving public key from keystore");
+            throw new BlogTesteException("Exception while retrieving public key from keystore");
         }
     }
 
